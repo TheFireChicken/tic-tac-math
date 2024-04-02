@@ -1,0 +1,136 @@
+[gd_scene load_steps=7 format=3 uid="uid://bi2syc0isg6at"]
+
+[ext_resource type="PackedScene" uid="uid://c01whay0dubxk" path="res://Game/ClickableSquare.tscn" id="1_5cqoj"]
+[ext_resource type="Script" path="res://Game/game.gd" id="1_od1ha"]
+[ext_resource type="Texture2D" uid="uid://dbaeunn4ost7k" path="res://Textures/Pick_blocked.png" id="3_q0dec"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tdei1"]
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_xg5i2"]
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_tqdyv"]
+font_size = 40
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_od1ha")
+
+[node name="TurnText" type="Label" parent="."]
+offset_left = 45.0
+offset_top = 34.0
+offset_right = 249.0
+offset_bottom = 76.0
+text = "Current Turn: "
+label_settings = SubResource("LabelSettings_tdei1")
+
+[node name="TurnSymbol" type="Label" parent="."]
+offset_left = 247.0
+offset_top = 35.0
+offset_right = 266.0
+offset_bottom = 77.0
+text = "X"
+label_settings = SubResource("LabelSettings_xg5i2")
+
+[node name="ClickableSquare" parent="." instance=ExtResource("1_5cqoj")]
+position = Vector2(111, 205)
+
+[node name="ClickableSquare2" parent="." instance=ExtResource("1_5cqoj")]
+position = Vector2(248, 205)
+
+[node name="ClickableSquare3" parent="." instance=ExtResource("1_5cqoj")]
+position = Vector2(385, 205)
+
+[node name="ClickableSquare4" parent="." instance=ExtResource("1_5cqoj")]
+position = Vector2(385, 478)
+
+[node name="ClickableSquare5" parent="." instance=ExtResource("1_5cqoj")]
+position = Vector2(249, 478)
+
+[node name="ClickableSquare6" parent="." instance=ExtResource("1_5cqoj")]
+position = Vector2(111, 478)
+
+[node name="ClickableSquare7" parent="." instance=ExtResource("1_5cqoj")]
+position = Vector2(385, 342)
+
+[node name="ClickableSquare8" parent="." instance=ExtResource("1_5cqoj")]
+position = Vector2(249, 342)
+
+[node name="ClickableSquare9" parent="." instance=ExtResource("1_5cqoj")]
+position = Vector2(111, 342)
+
+[node name="Calculation" type="Label" parent="."]
+visible = false
+offset_left = 125.0
+offset_top = 568.0
+offset_right = 279.0
+offset_bottom = 623.0
+text = "17 x 5 = "
+label_settings = SubResource("LabelSettings_tqdyv")
+
+[node name="BlockedField" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(248, 341)
+texture = ExtResource("3_q0dec")
+
+[node name="CalculationInputField" type="LineEdit" parent="."]
+visible = false
+offset_left = 324.0
+offset_top = 576.0
+offset_right = 441.0
+offset_bottom = 618.0
+placeholder_text = "Solution Here"
+
+[node name="TimeLeftProgress" type="ProgressBar" parent="."]
+visible = false
+modulate = Color(1, 0, 0, 1)
+offset_left = -1.0
+offset_top = 674.0
+offset_right = 502.0
+offset_bottom = 701.0
+value = 100.0
+show_percentage = false
+
+[node name="TimeLeftTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="WinnerText" type="RichTextLabel" parent="."]
+visible = false
+offset_left = 36.0
+offset_top = 82.0
+offset_right = 338.0
+offset_bottom = 224.0
+theme_override_font_sizes/bold_font_size = 40
+bbcode_enabled = true
+text = "[b] WINNER: [/b]"
+scroll_active = false
+
+[node name="RestartText" type="RichTextLabel" parent="."]
+visible = false
+offset_left = 157.0
+offset_top = 571.0
+offset_right = 459.0
+offset_bottom = 713.0
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[wave amp=20 freq3]Click To Restart [/wave]"
+scroll_active = false
+
+[node name="SelectDifficulty" type="OptionButton" parent="."]
+offset_left = 333.0
+offset_top = 45.0
+offset_right = 445.0
+offset_bottom = 68.0
+
+[node name="Overlay" type="ColorRect" parent="."]
+visible = false
+offset_right = 501.0
+offset_bottom = 699.0
+
+[node name="OverlayTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="text_submitted" from="CalculationInputField" to="." method="_on_calculation_input_field_text_submitted"]
+[connection signal="timeout" from="TimeLeftTimer" to="." method="_on_time_left_timer_timeout"]
+[connection signal="item_selected" from="SelectDifficulty" to="." method="_on_select_difficulty_item_selected"]
+[connection signal="timeout" from="OverlayTimer" to="." method="_on_overlay_timer_timeout"]

@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://c01whay0dubxk"]
+
+[ext_resource type="Script" path="res://Game/ClickableSquare.gd" id="1_5sx7e"]
+[ext_resource type="Texture2D" uid="uid://dncav3tkofdl" path="res://Textures/square.png" id="1_og0ol"]
+[ext_resource type="Texture2D" uid="uid://cecrq213wn7p" path="res://Textures/cross.png" id="3_lqaef"]
+[ext_resource type="Texture2D" uid="uid://33k55uheswkw" path="res://Textures/circle.png" id="4_2fp1a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b2ilg"]
+size = Vector2(124, 123)
+
+[node name="ClickableSquare" type="Node2D"]
+script = ExtResource("1_5sx7e")
+
+[node name="Square" type="Sprite2D" parent="."]
+texture = ExtResource("1_og0ol")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_b2ilg")
+
+[node name="X" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_lqaef")
+
+[node name="O" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("4_2fp1a")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
